@@ -11,7 +11,9 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const isVercel = process.env.VERCEL === '1';
+const baseDir = isVercel ? require('os').tmpdir() : __dirname;
+app.use('/uploads', express.static(path.join(baseDir, 'uploads')));
 
 // Connexion MongoDB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/affiliate_wholesale')

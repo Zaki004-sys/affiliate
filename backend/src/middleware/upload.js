@@ -1,9 +1,13 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 // Creer le dossier uploads s'il n'existe pas
-const uploadDir = path.join(__dirname, '../../uploads/products');
+const isVercel = process.env.VERCEL === '1';
+const baseDir = isVercel ? os.tmpdir() : path.join(__dirname, '../../');
+const uploadDir = path.join(baseDir, 'uploads/products');
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
