@@ -35,6 +35,31 @@ app.get('/', (req, res) => {
   res.json({ message: 'API Grossiste Affiliation - OK' });
 });
 
+// Route temporaire pour peupler la base de donnees (seeding) depuis Vercel
+app.get('/api/run-seed-now', async (req, res) => {
+  try {
+    const User = require('./src/models/User');
+    const Product = require('./src/models/Product');
+    
+    await User.deleteMany({});
+    await Product.deleteMany({});
+    
+    await User.create({
+      firstName: 'Admin',
+      lastName: 'Grossiste',
+      email: 'admin@grossiste.com',
+      password: 'admin123',
+      phone: '0612345678',
+      city: 'Casablanca',
+      role: 'admin'
+    });
+    
+    res.json({ success: true, message: "Base de donnees peuplee avec succes ! Vous pouvez vous connecter." });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Gestion des erreurs
 app.use((err, req, res, next) => {
   console.error(err.stack);
