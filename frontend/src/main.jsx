@@ -6,9 +6,9 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import axios from 'axios'
 import './index.css'
 
-// URL du backend Vercel (production)
-const backendUrl = import.meta.env.VITE_API_URL || 'https://affiliate-t553.vercel.app';
-axios.defaults.baseURL = backendUrl;
+// Vercel proxy: /api/* → https://affiliate-t553.vercel.app/api/*
+// En production, on utilise des URLs relatives (pas besoin de baseURL)
+axios.defaults.baseURL = '';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
