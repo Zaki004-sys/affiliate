@@ -44,4 +44,5 @@ app.listen(PORT, () => {
   console.log(`Serveur demarre sur le port ${PORT}`);
 });
 
-// Restart triggered
+// Pour le déploiement sur Vercel (Serverless)
+module.exports = app;
